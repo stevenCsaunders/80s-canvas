@@ -7,21 +7,27 @@ body {
   background: url(56657-O8OSMC-237.png);
   background-repeat: repeat;
 }
+h2 {
+  z-index: 1000;
+}
 
 .canvasWrap {
   display: grid;
   align-items: center;
   justify-items: center;
+  border: 30px solid #f72d9d;
+  box-shadow: 0px 0px 55px 25px #f72d9d;
 }
 
 canvas {
-  border: 30px solid #f72d9d;
-  box-shadow: 0px 0px 55px 25px #f72d9d;
   background: white;
   position: relative;
+  width: 800px;
+  height: 400px;
 }
 
 .clear-canvas {
+  margin-top: 2rem;
   padding: 0.75rem 2rem;
   font-size: 1rem;
   color: white;

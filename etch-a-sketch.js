@@ -3,39 +3,47 @@ const canvas = document.querySelector(`canvas`);
 const ctx = canvas.getContext(`2d`);
 const clearBtn = document.querySelector(`button`);
 
-// Get coordinates on mousedown and mouseenter
-const mousePosition = { x: 0, y: 0 };
+function getMousePos(e) {
+  const rect = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / rect.width;
+  const scaleY = canvas.height / rect.height;
+  const mouseX = e.clientX - rect.left;
+  const mouseY = e.clientY - rect.top;
 
-function setPosition(e) {
-  mousePosition.x = e.clientX - canvas.offsetLeft;
-  mousePosition.y = e.clientY - canvas.offsetTop;
+  return {
+    X: Math.floor(mouseX * scaleX),
+    Y: Math.floor(mouseY * scaleY),
+  };
 }
-// Create draw function
-function draw(e) {
-  if (e.buttons !== 1) {
-    return;
-  }
 
-  // /Begin the path
+function startPainting() {
   ctx.beginPath();
-  // /Set line properties
+}
+
+function endPainting() {
+  ctx.beginPath();
+}
+
+function draw(e) {
+  if (e.buttons !== 1) return;
+  const pos = getMousePos(e);
   ctx.lineCap = `round`;
   ctx.lineJoin = `round`;
   ctx.lineWidth = 10;
   ctx.strokeStyle = `#672293`;
+  ctx.shadowColor = `#f72d9d`;
+  ctx.shadowBlur = `15`;
+  ctx.lineTo(pos.X, pos.Y);
   ctx.stroke();
+  ctx.moveTo(pos.X, pos.Y);
 
-  // /Draw on canvas
-  ctx.moveTo(mousePosition.x, mousePosition.y);
-  ctx.lineTo(mousePosition.x, mousePosition.y);
-
-  // /Set flag for mouseup
+  const status = document.querySelector(`#mouse-position`);
+  status.innerHTML = `${pos.X} | ${pos.Y}`;
 }
 
-// Attach mouse down, mousemove, and mouseup event listeners to the canvas
 canvas.addEventListener(`mousemove`, draw);
-canvas.addEventListener(`mousedown`, setPosition);
-canvas.addEventListener(`mouseenter`, setPosition);
+canvas.addEventListener(`mousedown`, startPainting);
+canvas.addEventListener(`mouseenter`, endPainting);
 
 // create clear canvas function
 

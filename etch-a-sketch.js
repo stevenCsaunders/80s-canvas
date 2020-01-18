@@ -1,7 +1,9 @@
 // Pull elements from DOM
 const canvas = document.querySelector(`canvas`);
+const canvasWrap = document.querySelector(`#canvasWrap`);
 const ctx = canvas.getContext(`2d`);
 const clearBtn = document.querySelector(`button`);
+let hue = 0;
 
 function getMousePos(e) {
   const rect = canvas.getBoundingClientRect();
@@ -26,11 +28,14 @@ function endPainting() {
 
 function draw(e) {
   if (e.buttons !== 1) return;
+  hue += 1;
+
   const pos = getMousePos(e);
   ctx.lineCap = `round`;
   ctx.lineJoin = `round`;
   ctx.lineWidth = 10;
-  ctx.strokeStyle = `#672293`;
+  ctx.strokeStyle = `hsl(${hue}, 100%, 62%)`;
+  hue += 1;
   ctx.shadowColor = `#f72d9d`;
   ctx.shadowBlur = `15`;
   ctx.lineTo(pos.X, pos.Y);
@@ -45,6 +50,12 @@ canvas.addEventListener(`mousemove`, draw);
 canvas.addEventListener(`mousedown`, startPainting);
 canvas.addEventListener(`mouseenter`, endPainting);
 
-// create clear canvas function
+function clearCanvas() {
+  canvasWrap.classList.add(`clear-canvas`);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  canvasWrap.addEventListener(`animationend`, function() {
+    canvasWrap.classList.remove(`clear-canvas`);
+  });
+}
 
-// add event listener to button
+clearBtn.addEventListener(`click`, clearCanvas);

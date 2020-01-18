@@ -29,7 +29,7 @@ function endPainting() {
 
 function draw(e) {
   if (e.buttons !== 1) return;
-  hue += 1;
+  hue += 5;
 
   const pos = getMousePos(e);
   ctx.lineCap = `round`;
@@ -43,8 +43,8 @@ function draw(e) {
   ctx.stroke();
   ctx.moveTo(pos.X, pos.Y);
 
-  const status = document.querySelector(`#mouse-position`);
-  status.innerHTML = `${pos.X} | ${pos.Y}`;
+  const title = document.querySelector(`h2`);
+  title.style = `color: ${ctx.strokeStyle};`;
 }
 
 canvas.addEventListener(`mousemove`, draw);

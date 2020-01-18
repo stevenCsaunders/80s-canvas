@@ -9,6 +9,9 @@ body {
 }
 h2 {
   z-index: 1000;
+  font-size: 4rem;
+  font-family: 'Audiowide', cursive;
+  box-shadow: 0px 0px 22px black;
 }
 
 .canvasWrap {

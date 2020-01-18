@@ -21,10 +21,12 @@ h2 {
 }
 
 canvas {
+  transition: all 2s;
   background: white;
   position: relative;
   width: 800px;
   height: 400px;
+  opacity: 1;
 }
 
 .clear-canvas-btn {
@@ -37,7 +39,8 @@ canvas {
 }
 
 .clear-canvas {
-  animation: clear-canvas 1s ease-out forwards;
+  opacity: 0;
+  animation: clear-canvas 1.5s ease-out forwards;
 }
 
 @keyframes clear-canvas {

@@ -51,11 +51,14 @@ canvas.addEventListener(`mousedown`, startPainting);
 canvas.addEventListener(`mouseenter`, endPainting);
 
 function clearCanvas() {
-  canvasWrap.classList.add(`clear-canvas`);
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  canvasWrap.addEventListener(`animationend`, function() {
-    canvasWrap.classList.remove(`clear-canvas`);
-  });
+  canvas.classList.add(`clear-canvas`);
+  canvasWrap.addEventListener(
+    `animationend`,
+    setTimeout(function() {
+      canvas.classList.remove(`clear-canvas`);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }, 1000)
+  );
 }
 
 clearBtn.addEventListener(`click`, clearCanvas);

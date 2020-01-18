@@ -53,7 +53,7 @@ canvas.addEventListener(`mouseenter`, endPainting);
 
 function clearCanvas() {
   canvas.classList.add(`clear-canvas`);
-  canvasWrap.addEventListener(
+  canvas.addEventListener(
     `animationend`,
     setTimeout(function() {
       canvas.classList.remove(`clear-canvas`);

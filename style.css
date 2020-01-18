@@ -36,6 +36,7 @@ canvas {
   color: white;
   background-color: #f72d9d;
   border: none;
+  outline: none;
 }
 
 .clear-canvas {

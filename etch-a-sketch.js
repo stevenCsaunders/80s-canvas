@@ -18,8 +18,9 @@ function getMousePos(e) {
   };
 }
 
-function startPainting() {
+function startPainting(e) {
   ctx.beginPath();
+  draw(e);
 }
 
 function endPainting() {

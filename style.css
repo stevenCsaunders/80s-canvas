@@ -8,9 +8,12 @@ body {
   background-repeat: repeat;
 }
 h2 {
-  z-index: 1000;
+  z-index: 10;
   font-size: 4rem;
   font-family: 'Audiowide', cursive;
+  border-bottom: 10px solid black;
+  background: hsla(100, 0%, 100%, 0.5);
+  padding: 5px;
   box-shadow: 0px 0px 22px black;
 }
 
@@ -27,8 +30,8 @@ canvas {
   transition: all 2s;
   background: white;
   position: relative;
-  width: 800px;
-  height: 400px;
+  width: 600px;
+  height: 300px;
   opacity: 1;
 }
 

@@ -6,6 +6,12 @@ const clearBtn = document.querySelector(`button`);
 let hue = 0;
 
 //EVENT LISTENERS ON TH4E CANVAS
+canvas.addEventListener(`mousemove`, draw);
+canvas.addEventListener(`mousedown`, startDraw);
+canvas.addEventListener(`mouseup`, endDraw);
+canvas.addEventListener(`touchmove`, draw);
+canvas.addEventListener(`touchstart`, startDraw);
+canvas.addEventListener(`touchend`, endDraw);
 
 //FIND MOUSE OR TOUCH LOCATION
 function getMousePos(e) {
@@ -28,14 +34,13 @@ console.log(e.touches);
   }
 }
 
-
 //STARTING, DRAWING, AND STOPPING FUNCTIONS
-function startPainting(e) {
+function startDraw(e) {
   ctx.beginPath();
   draw(e);
 }
 
-function endPainting() {
+function endDraw() {
   ctx.beginPath();
 }
 
@@ -47,27 +52,20 @@ function draw(e) {
   const mouseNotClicked = e.buttons !== 1;
   if(mouseNotClicked) return;
 
+  // STROKE STYLE
   ctx.lineCap = `round`;
   ctx.lineJoin = `round`;
   ctx.lineWidth = 10;
   ctx.strokeStyle = `hsl(${hue}, 100%, 62%)`;
   hue += 1;
-  ctx.shadowColor = `#f72d9d`;
-  ctx.shadowBlur = `15`;
+
+  //DRAW
   ctx.lineTo(pos.X, pos.Y);
   ctx.stroke();
   ctx.moveTo(pos.X, pos.Y);
 
-  title.style = `color: ${ctx.strokeStyle};`;
+  title.style = `border-bottom: 10px solid ${ctx.strokeStyle};`;
 }
-
-canvas.addEventListener(`mousemove`, draw);
-canvas.addEventListener(`mousedown`, startPainting);
-canvas.addEventListener(`mouseup`, endPainting);
-canvas.addEventListener(`touchmove`, draw);
-canvas.addEventListener(`touchstart`, startPainting);
-canvas.addEventListener(`touchend`, endPainting);
-
 
 //CLEAR THE CANVAS
 const clearCanvas = () => {

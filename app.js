@@ -47,23 +47,20 @@ function endDraw() {
 function draw(e) {
   const pos = getMousePos(e);
   const title = document.querySelector(`h2`);
-  
   //DONT DRAW UNLESS THE MAIN MOUSE BUTTON IS PRESSED
   const mouseNotClicked = e.buttons !== 1;
   if(mouseNotClicked) return;
-
   // STROKE STYLE
   ctx.lineCap = `round`;
   ctx.lineJoin = `round`;
   ctx.lineWidth = 10;
   ctx.strokeStyle = `hsl(${hue}, 100%, 62%)`;
   hue += 1;
-
   //DRAW
   ctx.lineTo(pos.X, pos.Y);
   ctx.stroke();
   ctx.moveTo(pos.X, pos.Y);
-
+  //COLOR CHANGING BAR
   title.style = `border-bottom: 10px solid ${ctx.strokeStyle};`;
 }
 
@@ -75,9 +72,7 @@ const clearCanvas = () => {
     canvas.classList.remove(`clear-canvas`);
   }, 10);
 }
-  
   canvas.classList.add(`clear-canvas`);
   canvas.addEventListener(`animationend`, animationTimeout);
 }
-
 clearBtn.addEventListener(`click`, clearCanvas);

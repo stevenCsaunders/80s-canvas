@@ -1,6 +1,5 @@
 //EVENT LISTENERS FOR TOUCH
 const canvas = document.querySelector(`canvas`);
-const canvasWrap = document.querySelector(`#canvasWrap`);
 const ctx = canvas.getContext(`2d`);
 
 function start() {

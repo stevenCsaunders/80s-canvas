@@ -1,10 +1,13 @@
-// Pull elements from DOM
+//PULL ALL ELEMENTS FROM DOM
 const canvas = document.querySelector(`canvas`);
 const canvasWrap = document.querySelector(`#canvasWrap`);
 const ctx = canvas.getContext(`2d`);
 const clearBtn = document.querySelector(`button`);
 let hue = 0;
 
+//EVENT LISTENERS ON TH4E CANVAS
+
+//FIND MOUSE OR TOUCH LOCATION
 function getMousePos(e) {
   const rect = canvas.getBoundingClientRect();
   const scaleX = canvas.width / rect.width;
@@ -18,6 +21,15 @@ function getMousePos(e) {
   };
 }
 
+function getTouchPos(e) {
+  if(!e) return;
+  if(e.touches){
+console.log(e.touches);
+  }
+}
+
+
+//STARTING, DRAWING, AND STOPPING FUNCTIONS
 function startPainting(e) {
   ctx.beginPath();
   draw(e);
@@ -28,10 +40,13 @@ function endPainting() {
 }
 
 function draw(e) {
-  if (e.buttons !== 1) return;
-  hue += 5;
-
   const pos = getMousePos(e);
+  const title = document.querySelector(`h2`);
+  
+  //DONT DRAW UNLESS THE MAIN MOUSE BUTTON IS PRESSED
+  const mouseNotClicked = e.buttons !== 1;
+  if(mouseNotClicked) return;
+
   ctx.lineCap = `round`;
   ctx.lineJoin = `round`;
   ctx.lineWidth = 10;
@@ -43,23 +58,28 @@ function draw(e) {
   ctx.stroke();
   ctx.moveTo(pos.X, pos.Y);
 
-  const title = document.querySelector(`h2`);
   title.style = `color: ${ctx.strokeStyle};`;
 }
 
 canvas.addEventListener(`mousemove`, draw);
 canvas.addEventListener(`mousedown`, startPainting);
-canvas.addEventListener(`mouseenter`, endPainting);
+canvas.addEventListener(`mouseup`, endPainting);
+canvas.addEventListener(`touchmove`, draw);
+canvas.addEventListener(`touchstart`, startPainting);
+canvas.addEventListener(`touchend`, endPainting);
 
-function clearCanvas() {
+
+//CLEAR THE CANVAS
+const clearCanvas = () => {
+  function animationTimeout() { 
+    setTimeout(() => {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    canvas.classList.remove(`clear-canvas`);
+  }, 10);
+}
+  
   canvas.classList.add(`clear-canvas`);
-  canvas.addEventListener(
-    `animationend`,
-    setTimeout(function() {
-      canvas.classList.remove(`clear-canvas`);
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-    }, 1000)
-  );
+  canvas.addEventListener(`animationend`, animationTimeout);
 }
 
 clearBtn.addEventListener(`click`, clearCanvas);
